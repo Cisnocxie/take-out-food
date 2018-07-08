@@ -1,6 +1,10 @@
-function bestCharge(selectedItems) {
+let loadAllItems = require('../src/items');
+let loadPromotions = require('../src/promotions');
 
-  return /*TODO*/;
+function bestCharge(selectedItems) {
+  let buyItemsList = getBuyItemsList(selectedItems, loadAllItems());
+  let promotionPrice = countPromotionPrice(buyItemsList, loadPromotions());
+  return makeReceipt(buyItemsList, promotionPrice);
 }
 
 function getBuyItemsList(buyItemsIdNum, allItems) {
@@ -44,8 +48,25 @@ function countPromotionPrice(buyItemsList, promotions) {
   return promotionPrice;
 }
 
+function makeReceipt(buyItemsList, promotionPrice) {
+  let receipt = '============= 订餐明细 =============\n';
+  for (let i of buyItemsList) {
+    receipt += i.name + ' x ' + i.num + ' = ' + i.price * i.num + '元\n';
+  }
+  receipt += '-----------------------------------\n';
+  if (promotionPrice.savedprice != 0) {
+    receipt += '使用优惠:\n';
+    receipt += promotionPrice.promotion + '，省' + promotionPrice.savedprice + '元\n';
+    receipt += '-----------------------------------\n';
+  }
+  receipt += '总计：' + promotionPrice.finalprice + '元\n';
+  receipt += '===================================';
+  return receipt;
+}
+
 module.exports = {
   bestCharge,
   getBuyItemsList,
-  countPromotionPrice
+  countPromotionPrice,
+  makeReceipt
 }

@@ -81,21 +81,21 @@ describe('Take out food', function () {
 
 describe('Take out food', function () {
 
-  it('getBuyItemsList(buyItemsIdNum, allItems) testing', function() {
+  it('countPromotionPrice(buyItemsList, promotions) testing', function() {
     let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
     let summary = countPromotionPrice(getBuyItemsList(inputs, loadAllItems()),loadPromotions());
     let expected = `{"promotion":"指定菜品半价(黄焖鸡，凉皮)","savedprice":13,"finalprice":25}`.trim()
     expect(JSON.stringify(summary)).toEqual(expected)
   });
 
-  it('getBuyItemsList(buyItemsIdNum, allItems) testing', function() {
+  it('countPromotionPrice(buyItemsList, promotions) testing', function() {
     let inputs = ["ITEM0013 x 4", "ITEM0022 x 1"];
     let summary = countPromotionPrice(getBuyItemsList(inputs, loadAllItems()),loadPromotions());
     let expected = `{"promotion":"满30减6元","savedprice":6,"finalprice":26}`.trim()
     expect(JSON.stringify(summary)).toEqual(expected)
   });
 
-  it('getBuyItemsList(buyItemsIdNum, allItems) testing', function() {
+  it('countPromotionPrice(buyItemsList, promotions) testing', function() {
     let inputs = ["ITEM0013 x 4"];
     let summary = countPromotionPrice(getBuyItemsList(inputs, loadAllItems()),loadPromotions());
     let expected = `{"promotion":"","savedprice":0,"finalprice":24}`.trim()
