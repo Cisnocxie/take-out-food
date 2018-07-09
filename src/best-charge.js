@@ -7,19 +7,12 @@ function bestCharge(selectedItems) {
   return makeReceipt(buyItemsList, promotionPrice);
 }
 
-function getBuyItemsList(buyItemsIdNum, allItems) {
-  let buyItemsList = [];
-  let allItemsCopy = JSON.parse(JSON.stringify(allItems));
-  for (let i of buyItemsIdNum) {
-    for (let j of allItemsCopy) {
-      if (i.slice(0,8) === j.id) {
-        j.num = parseInt(i.slice(11));
-        buyItemsList.push(j);
-        break;
-      }
-    }
-  }
-  return buyItemsList;
+function getBuyItemsList(buyItemsIdNums, allItems) {
+  return buyItemsIdNums.map(buyItemsIdNum => {
+    let item = allItems.find(allItem => buyItemsIdNum.split(' x ')[0] === allItem.id);
+    item.num = parseInt(buyItemsIdNum.split(' x ')[1]);
+    return item;
+  });
 }
 
 function countPromotionPrice(buyItemsList, promotions) {
