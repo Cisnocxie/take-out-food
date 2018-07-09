@@ -9,9 +9,9 @@ function bestCharge(selectedItems) {
 
 function getBuyItemsList(buyItemsIdNums, allItems) {
   return buyItemsIdNums.map(buyItemsIdNum => {
-    let item = allItems.find(allItem => buyItemsIdNum.split(' x ')[0] === allItem.id);
-    item.num = parseInt(buyItemsIdNum.split(' x ')[1]);
-    return item;
+    let buyitem = allItems.find(allItem => buyItemsIdNum.split(' x ')[0] === allItem.id);
+    buyitem.num = parseInt(buyItemsIdNum.split(' x ')[1]);
+    return buyitem;
   });
 }
 
@@ -29,7 +29,10 @@ function countPromotionPrice(buyItemsList, promotions) {
       }
     }
   }
-  if (second) {
+  promotionPrice.finalprice = buyItemsList.reduce((finalprice, buyitem) => finalprice + buyitem);
+  let promotionBuyItems = buyItemsList.filter(buyitem => promotions[1].items.find(item => item === buyitem.id));
+  if (promotionBuyItems.length != 0) {
+    promotionPrice.savedprice = promotionBuyItems.reduce((savedprice, promotionBuyItem) => )
     promotionPrice.promotion = promotionPrice.promotion.slice(0,promotionPrice.promotion.length - 1);
     promotionPrice.promotion = '指定菜品半价(' + promotionPrice.promotion + ')';
   }
